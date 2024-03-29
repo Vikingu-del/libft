@@ -5,48 +5,52 @@
 #                                                     +:+ +:+         +:+      #
 #    By: eseferi <eseferi@student.42wolfsburg.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/19 16:06:16 by eseferi           #+#    #+#              #
-#    Updated: 2023/06/01 15:36:43 by eseferi          ###   ########.fr        #
+#    Created: 2023/08/08 16:46:23 by eseferi           #+#    #+#              #
+#    Updated: 2023/08/08 16:46:24 by eseferi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Variables
+NAME			=	libft.a
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror -Isrc -Iinclude
+RM				=	rm -rf
 
-CC = cc
-FLAGS = -c -Wall -Wextra -Werror
-NAME = libft.a
-SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
-		ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c \
-		ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c \
-		ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c \
-		ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
-		ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
-		ft_substr.c ft_tolower.c ft_toupper.c ft_striteri.c
-BON = ft_lstadd_front.c ft_lstnew.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
-		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+# Paths and Files
+VPATH			=	src:src/conversion:src/list:src/memory:src/output:src/string
+SRCS			=	ft_atoi.c ft_itoa.c ft_tolower.c ft_toupper.c \
+					ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
+					ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_bzero.c ft_calloc.c \
+					ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
+					ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
+					ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
+					ft_split.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_striteri.c \
+					ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
+					ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c
+							
+OBJS			=	$(addprefix obj/,$(SRCS:.c=.o))
 
-OBJ = $(SRC:.c=.o)
-OBJ_BON = $(BON:.c=.o)
-all: $(NAME)
+# Rules
+$(NAME):		$(OBJS)
+				ar rcs $(NAME) $(OBJS)
 
-$(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(SRC)
-	ar rc $(NAME) *.o
-	ranlib $(NAME)
+all:			$(NAME)
 
-bonus: clean
-	$(CC) $(FLAGS) $(BON)
-	ar rc $(NAME) *.o
-	ranlib $(NAME)
+obj:
+				mkdir -p obj
 
-%.o: %.c
-	$(CC) $(FLAGS) $< -o $@
+obj/%.o:		%.c | obj
+				mkdir -p $(dir $@)
+				$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(OBJ_BON)
+				$(RM) obj
 
-fclean: clean
-	rm -f $(NAME)
+fclean:			clean
+				$(RM) $(NAME)
 
-re:	fclean all
+re:				fclean all
 
-.PHONY: all bonus clean fclean re
+.SILENT:
+
+.PHONY:			all clean fclean re
