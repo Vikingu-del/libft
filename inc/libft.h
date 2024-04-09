@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eseferi <eseferi@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*   By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:42:09 by eseferi           #+#    #+#             */
-/*   Updated: 2023/08/08 20:47:37 by eseferi          ###   ########.fr       */
+/*   Updated: 2024/04/09 20:15:45 by eseferi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 int					ft_countwords(char const *s, char c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
+int					ft_isspace(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
@@ -48,6 +49,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 int					ft_atoi(const char *str);
+long long int		ft_atoi_base(char *str, char *base);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s1);
 
